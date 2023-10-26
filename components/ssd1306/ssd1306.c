@@ -464,6 +464,13 @@ void ssd1306_bitmaps(SSD1306_t * dev, int xpos, int ypos, uint8_t * bitmap, int 
 	ssd1306_show_buffer(dev);
 }
 
+void ssd1306_clear_area(SSD1306_t * dev, int xpos, int ypos, int width, int height, bool invert) {
+    // Create a buffer filled with zeros of the desired size
+    int buffer_size = width * (height / 8);
+    uint8_t clear_buffer[buffer_size];
+    memset(clear_buffer, 0x00, buffer_size);
+    ssd1306_bitmaps(dev, xpos, ypos, clear_buffer, width, height, invert);
+}
 
 // Set pixel to internal buffer. Not show it.
 void _ssd1306_pixel(SSD1306_t * dev, int xpos, int ypos, bool invert)
